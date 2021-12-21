@@ -4,13 +4,23 @@ import {
   LibraryIcon,
   PlusCircleIcon,
   HeartIcon,
-  RssIcon
+  RssIcon,
+  LogoutIcon
 } from '@heroicons/react/outline';
+import { signOut, useSession } from 'next-auth/react';
 
 function Sidebar(params) {
-  return(
-    <div className='text-gray-500 text-sm p-5 border-r border-gray-900'>
+  const { data: session, status } = useSession();
+
+  console.log(status === 'authenticated' && session);
+
+  return (
+    <div className='text-gray-500 text-sm p-5 border-r border-gray-900 overflow-y-scroll h-screen scrollbar-hide'>
       <div className='space-y-4'>
+        <button className='flex items-center space-x-2 hover:text-white' onClick={() => signOut()}>
+          <LogoutIcon className='w-5 h-5' />
+          <p>Log out</p>
+        </button>
         <button className='flex items-center space-x-2 hover:text-white'>
           <HomeIcon className='w-5 h-5' />
           <p>Home</p>
@@ -40,6 +50,48 @@ function Sidebar(params) {
         <hr className='border-t-[0.1px] border-gray-900' />
 
         {/* Playlists.... */}
+        <p className='cursor-pointer hover:text-white'>
+          Playlist me ...
+        </p>
+        <p className='cursor-pointer hover:text-white'>
+          Playlist me ...
+        </p>
+        <p className='cursor-pointer hover:text-white'>
+          Playlist me ...
+        </p>
+        <p className='cursor-pointer hover:text-white'>
+          Playlist me ...
+        </p>
+        <p className='cursor-pointer hover:text-white'>
+          Playlist me ...
+        </p>
+        <p className='cursor-pointer hover:text-white'>
+          Playlist me ...
+        </p>
+        <p className='cursor-pointer hover:text-white'>
+          Playlist me ...
+        </p>
+
+        <p className='cursor-pointer hover:text-white'>
+          Playlist me ...
+        </p>
+        <p className='cursor-pointer hover:text-white'>
+          Playlist me ...
+        </p>
+
+        <p className='cursor-pointer hover:text-white'>
+          Playlist me ...
+        </p>
+        <p className='cursor-pointer hover:text-white'>
+          Playlist me ...
+        </p>
+        <p className='cursor-pointer hover:text-white'>
+          Playlist me ...
+        </p>
+
+        <p className='cursor-pointer hover:text-white'>
+          Playlist me ...
+        </p>
         <p className='cursor-pointer hover:text-white'>
           Playlist me ...
         </p>

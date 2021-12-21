@@ -13,7 +13,7 @@ async function refreshAccessToken(token){
     return{
       ...token,
       accessToken: refreshedToken.access_token,
-      accessTokenExpired: Date.now + refreshedToken.expires_in * 1000, // = 1 hour as 3000 returns from sporify API
+      accessTokenExpires: Date.now + refreshedToken.expires_in * 1000, // = 1 hour as 3000 returns from sporify API
       refreshToken: refreshedToken.refresh_token ?? token.refreshToken,
       // Replace if new one came back else fall back to old refresh token
     }
@@ -42,36 +42,38 @@ export default NextAuth({
     signIn: '/login'
   },
   callbacks: {
-    async jwt({ token, user, account }){
-      // Initial sign in 
-      if(user && account){
-        console.log(account);
-
+    async jwt({token, user, account}) {
+      // Initial sign in
+      if (account && user) {
         return{
           ...token,
           accessToken: account.access_token,
           refreshToken: account.refresh_token,
           username: account.providerAccountId,
-          accessTokenExpired: account.expires_at * 1000
+          accessTokenExpires: account.expires_at * 1000,        
         }
       }
 
       // Return previous token if the access token has not expirred yet
-      if(Date.now() < token.accessTokenExpired){
+      console.log(new Date(token.accessTokenExpires).toString())
+      if(Date.now() < token.accessTokenExpires){
         console.log('EXISTING ACCESS TOKEN IS VALID');
-        return token
+        return token;
       }
 
       // Access token has expired, so we need to refresh it...
       console.log('ACCESS TOKEN HAS EXPIRED, REFRESHING....');
       return await refreshAccessToken(token);
+    },
+
+    async session({ session, token, account }){
+      session.user.accessToken = token.accessToken;
+      session.user.refreshToken = token.refreshToken;
+      session.user.username = token.username;
+
+      console.log("USER", session);
+
+      return session;
     }
   },
-  async session({ session, token }){
-    session.user.accessToken = token.accessToken;
-    session.user.refreshToken = token.refreshToken;
-    session.user.username = token.username;
-
-    return session;
-  }
 })
