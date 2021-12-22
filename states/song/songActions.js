@@ -1,15 +1,15 @@
 import { GET_SONG_ID, PLAYING_SONG } from ".."
 
-export const getIdSong = ({currentTrackIdSong}) => {
+export const getIdSong = (payload) => {
   return{
     type: GET_SONG_ID,
-    currentTrackIdSong
+    currentTrackIdSong: payload
   }
 }
 
-export const playingSong = ({isPlayingSong}) => {
+export const playingSong = (payload) => {
   return{
     type: PLAYING_SONG,
-    isPlayingSong
+    isPlayingSong: payload
   }
 }

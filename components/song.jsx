@@ -8,12 +8,12 @@ function Song({track, order}) {
   const spotifyApi = useSpotify();
 
   const playSong = () => {
-    dispatch(getIdSong(track.track.id));
-    dispatch(playingSong(true));
-    spotifyApi.play({
-      uris: track.track.uri,
-    })
-    console.log(track)
+    spotifyApi.play({ uris: track.track.uri })
+      .then(data => {
+        dispatch(getIdSong(track.track.id));
+        dispatch(playingSong(true));
+      })
+      .catch(error => alert('Your account must be premium to access songs'))
   }
 
   return(

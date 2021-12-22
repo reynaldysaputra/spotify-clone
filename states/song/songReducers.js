@@ -1,7 +1,7 @@
 import { GET_SONG_ID, PLAYING_SONG } from "..";
 
 const initialState= {
-  currentTrackIdSong: null,
+  currentTrackIdSong: '',
   isPlayingSong: false
 }
 
