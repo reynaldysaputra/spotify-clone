@@ -7,7 +7,7 @@ export function getPlaylistId(payload) {
   }
 }
 
-export function getPlaylist(payload) {
+export function getPlaylistUser(payload) {
   return{
     type: GET_PLAYLIST,
     playlist: payload

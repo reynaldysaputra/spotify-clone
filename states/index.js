@@ -1,2 +1,4 @@
 export const GET_PLAYLIST_ID="GET_PLAYLIST_ID";
 export const GET_PLAYLIST="GET_PLAYLIST";
+export const GET_SONG_ID="GET_SONG_ID";
+export const PLAYING_SONG="PLAYING_SONG";

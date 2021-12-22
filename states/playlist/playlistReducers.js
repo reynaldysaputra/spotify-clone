@@ -1,7 +1,7 @@
 import { GET_PLAYLIST, GET_PLAYLIST_ID } from "..";
 
 const initialState= {
-  playlistId: "",
+  playlistId: "6y5rmN4SL0aff7gzc9UwHl",
   playlist: ""
 }
 

@@ -7,14 +7,17 @@ import {
   RssIcon,
   LogoutIcon
 } from '@heroicons/react/outline';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import useSpotify from '../hooks/useSpotify';
+import { getPlaylistId } from '../states/playlist/playlistActions';
 
-function Sidebar(params) {
+function Sidebar() {
   const { data: session } = useSession();
   const [playlist, setPlaylist] = useState([]);
   const spotifyApi = useSpotify();
+  const dispatch = useDispatch();
   
   useEffect(() => {
     if(spotifyApi.getAccessToken()){
@@ -25,13 +28,8 @@ function Sidebar(params) {
   }, [session, spotifyApi])
 
   return (
-    <div className='text-gray-500 text-sm p-5 border-r border-gray-900 overflow-y-scroll h-screen scrollbar-hide'>
+    <div className='text-gray-500 p-5 border-r border-gray-900 overflow-y-scroll h-screen scrollbar-hide text-xs lg:text-sm hidden sm:max-w-[12rem] md:inline-flex lg:max-w-[15rem]'>
       <div className='space-y-4'>
-        {console.log(playlist)}
-        <button className='flex items-center space-x-2 hover:text-white' onClick={() => signOut()}>
-          <LogoutIcon className='w-5 h-5' />
-          <p>Log out</p>
-        </button>
         <button className='flex items-center space-x-2 hover:text-white'>
           <HomeIcon className='w-5 h-5' />
           <p>Home</p>
@@ -62,7 +60,11 @@ function Sidebar(params) {
 
         {/* Playlists.... */}
         {playlist.map(playlists => (
-          <p className='cursor-pointer hover:text-white' key={playlists.id}>
+          <p 
+            className='cursor-pointer hover:text-white' 
+            key={playlists.id}
+            onClick={() => dispatch(getPlaylistId(playlists.id))}
+          >
             {playlists.name}
           </p>
         ))}
